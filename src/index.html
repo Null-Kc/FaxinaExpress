@@ -58,12 +58,15 @@
       }
 
       // Function to add data to Firestore
-      async function addData(name, phoneNumber, day) {
+      async function addData(name, phoneNumber, address, complemento, cep, day) {
           try {
               const docRef = await addDoc(collection(db, "Faxina"), {
                   name: name,
                   phoneNumber: phoneNumber,
                   day: day,
+                  address: address,
+                  complemento: complemento,
+                  cep: cep,
               });
               console.log("Document added with ID: ", docRef.id);
               
@@ -78,14 +81,18 @@
           const Apagar = document.getElementById("reset");
           const name = document.getElementById("nomeInput").value;
           const phoneNumber = document.getElementById("phoneNumberInput").value;
+          const address = document.querySelector("#adressInput").value;
+          const complemento = document.querySelector("#ComplementoInput").value;
+          const cep = document.querySelector("#cepInput").value;
           const day = document.getElementById("dayInput").value;
+          console.log(address);
 
           try {
               const isAvailable = await checkAvailability();
 
               if (isAvailable) {
                   
-                addData(name, phoneNumber, day);
+                addData(name, phoneNumber, address, complemento, cep, day);
                   
                 Apagar.click();
                 
@@ -117,17 +124,32 @@
         <form class="container_form" id="contactForm">
           <div class="input_container">
             <label for="nomeInput" class="texto_input_padrao">Digite seu nome:</label>
-            <input type="text" class="input_padrao" id="nomeInput" name="nomeInput" placeholder="João Maciel Da Silva" required>
+            <input type="text" class="input_padrao" id="nomeInput" name="nomeInput" placeholder="ex: João Maciel Da Silva" required>
           </div>
 
           <div class="input_container">
             <label for="phoneNumberInput" class="texto_input_padrao">Digite seu telefone de contato:</label>
-            <input type="text" class="input_padrao" id="phoneNumberInput" name="phoneNumberInput" placeholder="(88) 9 9945-1245" required>
+            <input type="text" class="input_padrao" id="phoneNumberInput" name="phoneNumberInput" placeholder="ex: (88) 9 9945-1245" required>
+          </div>
+
+          <div class="input_container">
+            <label for="adressInput" class="texto_input_padrao">Digite seu Endereço:</label>
+            <input type="text" class="input_padrao" id="adressInput" name="adressInput" placeholder="ex: Tv. Mauriti" required>
+          </div>
+
+          <div class="input_container">
+            <label for="ComplementoInput" class="texto_input_padrao">Complemento:</label>
+            <input type="text" class="input_padrao" id="ComplementoInput" name="ComplementoInput" placeholder="ex: Ap 307" required>
+          </div>
+
+          <div class="input_container">
+            <label for="cepInput" class="texto_input_padrao">Digite seu CEP:</label>
+            <input type="text" class="input_padrao mascaraCep" id="cepInput" name="cepInput" placeholder="ex: 6311-3635" required>
           </div>
 
           <div class="input_container">
             <label for="dayInput" class="texto_input_padrao">Dia desejado:</label>
-            <input type="date" class="input_padrao" id="dayInput" name="dayInput:" placeholder="00 / 00 / 00" required>
+            <input type="date" class="input_padrao" id="dayInput" name="dayInput:" placeholder="ex: 00 / 00 / 00" required>
           </div>
 
           <div class="box_botao">
@@ -167,6 +189,22 @@
       }
 
       telefoneInput.value = formatado;
+    });
+
+    var cepInput = document.getElementById('cepInput');
+
+    cepInput.addEventListener('input', function() {
+     
+      var cep = this.value.replace(/\D/g, '');
+
+      
+      if (cep.length === 8) {
+       
+        cep = cep.substring(0, 5) + '-' + cep.substring(5);
+      }
+
+      // Atualiza o valor do campo de entrada com o CEP formatado
+      this.value = cep;
     });
   </script>
 

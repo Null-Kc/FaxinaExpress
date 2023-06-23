@@ -158,6 +158,10 @@
   font-size: 12px;
 }
 
+.mascaraCep {
+  mask: "66083-000"
+}
+
 @media (max-width: 839px) {
   .textoAlert{
     font-size: 20px;

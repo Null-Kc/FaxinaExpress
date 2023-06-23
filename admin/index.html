@@ -40,7 +40,7 @@
 
       .card .delete-icon {
         position: absolute;
-        top: 40px;
+        top: 80px;
         right: 20px;
         color: #dc3545;
         background-color: #FFFFFF;
@@ -121,6 +121,19 @@
         const phoneNumber = document.createElement("p");
         phoneNumber.textContent = `Telefone: ${data.phoneNumber}`;
         info.appendChild(phoneNumber);
+
+        const address = document.createElement("p");
+        address.textContent = `Endereco: ${data.address}`;
+        info.appendChild(address);
+
+        const complemento = document.createElement("p");
+        complemento.textContent = `Complemento: ${data.complemento}`;
+        info.appendChild(complemento);
+
+        const cep = document.createElement("p");
+        cep.textContent = `CEP: ${data.cep}`;
+        info.appendChild(cep);
+        
         
         const day = document.createElement("p");
         day.textContent = `Data: ${data.day}`;
